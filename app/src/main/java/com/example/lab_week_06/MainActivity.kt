@@ -1,10 +1,8 @@
 package com.example.lab_week_06
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lab_week_06.model.CatBreed
@@ -12,26 +10,33 @@ import com.example.lab_week_06.model.CatModel
 import com.example.lab_week_06.model.Gender
 
 class MainActivity : AppCompatActivity() {
+
     private val recyclerView: RecyclerView by lazy {
-        findViewById(R.id.recycler_view)
+        findViewById<RecyclerView>(R.id.recycler_view)
     }
+
     private val catAdapter by lazy {
-//Glide is used here to load the images
-        CatAdapter(layoutInflater, GlideImageLoader(this))
+        // Glide is used here to load the images
+        // Passing the onClickListener function to the Adapter
+        CatAdapter(layoutInflater, GlideImageLoader(this), object : CatAdapter.OnClickListener {
+            // When this is triggered, the pop up dialog will be shown
+            override fun onItemClick(cat: CatModel) = showSelectionDialog(cat)
+        })
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-//Setup the adapter for the recycler view
+
+        // Setup the adapter for the recycler view
         recyclerView.adapter = catAdapter
-//Setup the layout manager for the recycler view
-//A layout manager is used to set the structure of the item views
-//For this tutorial, we're using the vertical linear structure
-        recyclerView.layoutManager = LinearLayoutManager(
-            this,
-            LinearLayoutManager.VERTICAL, false
-        )
-//Add data to the model list in the adapter
+
+        // Setup the layout manager for the recycler view
+        // Using vertical linear structure
+        recyclerView.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+
+        // Add data to the model list in the adapter
         catAdapter.setData(
             listOf(
                 CatModel(
@@ -57,5 +62,17 @@ class MainActivity : AppCompatActivity() {
                 )
             )
         )
+    }
+
+    // This will create a pop up dialog when one of the items from the recycler view is clicked.
+    private fun showSelectionDialog(cat: CatModel) {
+        AlertDialog.Builder(this)
+            // Set the title for the dialog
+            .setTitle("Cat Selected")
+            // Set the message for the dialog
+            .setMessage("You have selected cat ${cat.name}")
+            // Set OK button
+            .setPositiveButton("OK") { _, _ -> }
+            .show()
     }
 }

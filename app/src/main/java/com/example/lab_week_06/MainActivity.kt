@@ -3,6 +3,7 @@ package com.example.lab_week_06
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lab_week_06.model.CatBreed
@@ -16,10 +17,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val catAdapter by lazy {
-        // Glide is used here to load the images
-        // Passing the onClickListener function to the Adapter
         CatAdapter(layoutInflater, GlideImageLoader(this), object : CatAdapter.OnClickListener {
-            // When this is triggered, the pop up dialog will be shown
             override fun onItemClick(cat: CatModel) = showSelectionDialog(cat)
         })
     }
@@ -28,15 +26,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Setup the adapter for the recycler view
         recyclerView.adapter = catAdapter
-
-        // Setup the layout manager for the recycler view
-        // Using vertical linear structure
         recyclerView.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        // Add data to the model list in the adapter
+        // Attach swipe-to-delete
+        val itemTouchHelper = ItemTouchHelper(catAdapter.createSwipeToDeleteCallback())
+        itemTouchHelper.attachToRecyclerView(recyclerView)
+
         catAdapter.setData(
             listOf(
                 CatModel(
@@ -64,14 +61,10 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    // This will create a pop up dialog when one of the items from the recycler view is clicked.
     private fun showSelectionDialog(cat: CatModel) {
         AlertDialog.Builder(this)
-            // Set the title for the dialog
             .setTitle("Cat Selected")
-            // Set the message for the dialog
             .setMessage("You have selected cat ${cat.name}")
-            // Set OK button
             .setPositiveButton("OK") { _, _ -> }
             .show()
     }

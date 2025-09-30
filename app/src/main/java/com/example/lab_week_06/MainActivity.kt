@@ -56,6 +56,55 @@ class MainActivity : AppCompatActivity() {
                     "Curious George",
                     "Award winning investigator",
                     "https://cdn2.thecatapi.com/images/bar.jpg"
+                ),
+                CatModel(
+                    Gender.Male,
+                    CatBreed.ExoticShorthair,
+                    "Shadow",
+                    "Loves to hide in the dark",
+                    "https://cdn2.thecatapi.com/images/MTY3ODIyMQ.jpg"
+                ),
+                CatModel(
+                    Gender.Female,
+                    CatBreed.BalineseJavanese,
+                    "Luna",
+                    "Always chasing the moonlight",
+                    "https://cdn2.thecatapi.com/images/0XYvRd7oD.jpg"
+                ),
+                CatModel(
+                    Gender.Male,
+                    CatBreed.AmericanCurl,
+                    "Max",
+                    "Playful and energetic",
+                    "https://cdn2.thecatapi.com/images/d6u.jpg"
+                ),
+                CatModel(
+                    Gender.Female,
+                    CatBreed.ExoticShorthair,
+                    "Bella",
+                    "Cuddly and gentle",
+                    "https://cdn2.thecatapi.com/images/B1ERTmgph.jpg"
+                ),
+                CatModel(
+                    Gender.Male,
+                    CatBreed.BalineseJavanese,
+                    "Simba",
+                    "Thinks he’s a lion king",
+                    "https://cdn2.thecatapi.com/images/MTY3ODIyMQ.png"
+                ),
+                CatModel(
+                    Gender.Female,
+                    CatBreed.AmericanCurl,
+                    "Misty",
+                    "Loves staring at raindrops",
+                    "https://cdn2.thecatapi.com/images/9u6.jpg"
+                ),
+                CatModel(
+                    Gender.Unknown,
+                    CatBreed.ExoticShorthair,
+                    "Whiskers",
+                    "Curious and mischievous",
+                    "https://cdn2.thecatapi.com/images/8a0.jpg"
                 )
             )
         )
